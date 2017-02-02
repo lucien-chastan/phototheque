@@ -19,7 +19,7 @@ Ajouter les fichiers Js et Css dans votre page Html
 
 ## Utilisation
 
-Créer une <div> avec la class "phototheque" avec vos <img>
+Créer une `<div>` avec la class "phototheque" avec vos `<img>`
 
 ```html
 <div id="MyPhototheque" class="phototheque">
