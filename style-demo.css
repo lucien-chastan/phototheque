@@ -11,6 +11,14 @@ h1{
     margin-bottom: 8px;
 }
 
+.para-credit{
+    text-align: right;
+}
+
+.para-credit a{
+    text-decoration: none;
+}
+
 .intro{
     margin-top: 0px;
     margin-bottom: 30px;
