@@ -1,0 +1,33 @@
+/*STLYE DE LA PHOTOTHEQUE*/
+
+.phototheque {
+    line-height: 0;
+}
+
+.phototheque img {
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.phototheque img:hover {
+    opacity: 0.8;
+}
+
+
+/*STYLE DE LA VISIOTHEQUE*/
+.visiotheque-background {
+    transition: background-color 0.3s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: none;
+    background-color:rgba(0,0,0,0);
+}
+
+.visiotheque-img-open-animation{
+    position: fixed;
+    object-fit: cover;
+}
