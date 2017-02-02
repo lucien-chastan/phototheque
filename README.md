@@ -33,7 +33,7 @@ Créer une `<div>` avec la class "phototheque" avec vos `<img>`
 
 Lancer la création de la phototheque (exemple ne full option)
 
-```html
+```javascript
 window.onload = function (){
 	MyPhototheque = new Phototheque(
 		'#MyPhototheque',
@@ -49,10 +49,10 @@ window.onload = function (){
 
 ## Options
 
-- `"maxHeight"` : Hauteur des photos dans la galerie [defaut : 400px]
-- `"gouttiere"` : Espacement entre les photos [defaut : 0px]
+- `"maxHeight"` : Hauteur des photos dans la galerie *[defaut : 400px]*
+- `"gouttiere"` : Espacement entre les photos *[defaut : 0px]*
 - `"lastRow"` : gestion des photos de la dernière ligne, si elles ne peuvent pas être en full largeur, valeur possible :
-	+ "left" : photos alignées à gauche
-	+ "right" : photos alignées à droite
-	+ "center" : photos centrées [valeur par defaut]
-- `"visionneuse"` : true ou false suivant si on veux la visionneuse au click
+	+ `"left"` : photos alignées à gauche
+	+ `"right"` : photos alignées à droite
+	+ `"center"` : photos centrées *[valeur par defaut]*
+- `"visionneuse"` : true ou false suivant si on veux la visionneuse au click *[defaut : true]*
