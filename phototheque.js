@@ -196,10 +196,7 @@ class Visiotheque{
                 'top' : img.target.offsetTop - scrollPosition[1],
                 'left' : img.target.offsetLeft - scrollPosition[0]
             };
-        
-        console.log('top : ' + positionImg['top'] + ' - left : ' +  positionImg['left']);
-        console.log(this.getScrollPosition());
-        
+                
         this.background.style.display = 'block';
         var sleepToOpen = setTimeout(()=>{
             
@@ -207,12 +204,25 @@ class Visiotheque{
             this.background.style.backgroundColor = 'rgba(0,0,0,0.8)';
             
             //attribut de l'imgAnimationOpen
-            console.log(this.imgOpenAnimation);
             this.imgOpenAnimation.setAttribute('src',img.target.src);
             this.imgOpenAnimation.style.height = img.target.offsetHeight + 'px';
             this.imgOpenAnimation.style.width = img.target.offsetWidth + 'px';
             this.imgOpenAnimation.style.top = positionImg['top'] + 'px';
             this.imgOpenAnimation.style.left = positionImg['left'] + 'px';
+            this.imgOpenAnimation.style.transition = 'all 0.3s';
+            
+            var sleepToZoom = setTimeout(()=>{
+                
+                //donne la nouvelle source
+                var newSrc = this.imgOpenAnimation.getAttribute('data-full');
+                if(newSrc) this.imgOpenAnimation.setAttribute('src',newSrc);
+                
+                //effet de zoom
+                this.imgOpenAnimation.style.top = '20px';
+                this.imgOpenAnimation.style.left = '20px';
+                this.imgOpenAnimation.style.height = '400px';
+                this.imgOpenAnimation.style.width = '600px';
+            },50);
             
         },20);
     }

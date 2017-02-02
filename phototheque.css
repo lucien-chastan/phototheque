@@ -4,13 +4,13 @@
     line-height: 0;
 }
 
-.phototheque img {
+.phototheque > img {
     object-fit: cover;
     cursor: pointer;
     transition: opacity 0.3s;
 }
 
-.phototheque img:hover {
+.phototheque > img:hover {
     opacity: 0.8;
 }
 
@@ -28,6 +28,7 @@
 }
 
 .visiotheque-img-open-animation{
+    transition: all 0.3s;
     position: fixed;
     object-fit: cover;
 }
