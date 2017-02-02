@@ -31,9 +31,11 @@ Créer une `<div>` avec la class "phototheque" avec vos `<img>`
 </div>
 ```
 
-Lancer la création de la phototheque (exemple ne full option)
+Lancer la création de la photothèque
 
 ```javascript
+
+//exemple full option
 window.onload = function (){
 	MyPhototheque = new Phototheque(
 		'#MyPhototheque',
@@ -41,10 +43,19 @@ window.onload = function (){
          	"maxHeight" : "200px",
          	"gouttiere" : "3px",
          	"lastRow" : "center",
-         	"visionneuse" : true
+         	"visiotheque" : true,
+         	"visiotheque-option" : {
+         		"legende" : "data-legende"
+         	}
      	}
  	);
  }
+ 
+ //exemple option minimal
+ window.onload = function (){
+	MyPhototheque = new Phototheque('#MyPhototheque');
+ }
+ 
 ```
 
 ## Options
@@ -55,4 +66,9 @@ window.onload = function (){
 	+ `"left"` : photos alignées à gauche
 	+ `"right"` : photos alignées à droite
 	+ `"center"` : photos centrées *[valeur par defaut]*
-- `"visionneuse"` : true ou false suivant si on veux la visionneuse au click *[defaut : true]*
+- `"visiotheque"` : true ou false suivant si on veux la visionneuse au click *[defaut : true]*
+- `"visiotheque-option"` : option de la visiothèque
+	+ `"legende"` : défini la légende que l'on va afficher
+		* `"none"` : pas de légende
+		* `"alt"` : on prend la balise alt
+		* `"data-legende"` : on prend l'attribut data-legende [valeur par defaut]

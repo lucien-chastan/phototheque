@@ -8,23 +8,15 @@ body {
 h1{
     font-weight: normal;
     text-align: center;
-    margin-bottom: 8px;
-}
+    margin-bottom: 8px;}
 
-.para-credit{
-    text-align: right;
-}
+.para-credit{text-align: right;}
 
-.para-credit a{
-    text-decoration: none;
-}
+.para-credit a{text-decoration: none;}
 
 .intro{
     margin-top: 0px;
     margin-bottom: 30px;
-    text-align: center;
-}
+    text-align: center;}
 
-.container{
-    padding: 10px;
-}
+.container{padding: 10px;}
