@@ -19,4 +19,8 @@ h1{
     margin-bottom: 30px;
     text-align: center;}
 
-.container{padding: 10px;}
+.container{
+    max-width: 950px;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 10px;}
