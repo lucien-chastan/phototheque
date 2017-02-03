@@ -180,6 +180,8 @@ class Visiotheque{
 
         //attribution des events click sur les image
         this.addEvents();
+        
+        window.addEventListener('keypress',  (e)=>{this.visiothequeKeySlide(e)});
     }
 
     //DÉFINI LES OPTIONS DE LA VISIONNEUSE
@@ -260,7 +262,6 @@ class Visiotheque{
         },20);
     }
 
-
     //ANIME L'OUVERTURE DE VISIONNEUSE
     openAnimation(){
         var scrollPosition = this.getScrollPosition(),
@@ -330,6 +331,36 @@ class Visiotheque{
         //hauteur et largeur de l'image
         this.imgOpenAnimation.style.maxHeight = 'calc(100% - ' + (this.visothequeLegende.offsetHeight + 34) + 'px)';
         this.imgOpenAnimation.style.maxWidth = 'calc(100% - 10px)';
+        
+    }
+    
+    
+    //FONCTION DE SLIDE AU KEYPRESS
+    visiothequeKeySlide(e){
+        if(e.keyCode == 39) this.visiothequeSlider('right');
+        if(e.keyCode == 37) this.visiothequeSlider('left');
+    }
+    
+    visiothequeSlider(direction){
+        var decLeft = (direction == 'left')? 150 : -150;
+                
+        //si nous ne somme pas sur les bords
+        if((this.currentPhoto > 0 || direction == 'right') && (this.currentPhoto < (this.imgCollection.length - 1) || direction == 'left')){
+            
+            //animation de slide
+            this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s';
+            this.imgOpenAnimation.style.left = this.imgOpenAnimation.offsetLeft + decLeft + 'px';
+            this.imgOpenAnimation.style.opacity = 0;
+            
+            console.log(this.currentPhoto);
+            
+            var sleepAnimation = setTimeout(()=>{
+                this.imgOpenAnimation.style.transition = 'all 0s';
+                this.currentPhoto = (direction == 'left')? (this.currentPhoto - 1) : (parseInt(this.currentPhoto) + 1);
+                console.log(this.currentPhoto);
+            },300);
+            
+        }
         
     }
     
