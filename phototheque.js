@@ -195,6 +195,7 @@ class Visiotheque{
         //création du fond et mise en place des attributs
         this.background = document.createElement('div');
         this.background.className = 'visiotheque-background';
+        this.background.addEventListener('click', ()=>{this.closeVisiotheque()});
         this.element.appendChild(this.background);
 
         //création du loader
@@ -244,12 +245,14 @@ class Visiotheque{
                 newImage.src = this.imgClick.target.getAttribute('data-full');
                 newImage.onload = ()=>{
                     this.imgOpenAnimation.src = newImage.src;
+                    this.grandePhoto = this.imgOpenAnimation;
                     setTimeout(()=>{
                         this.openAnimation();
                     },50);
                 }
             }else{
                 this.imgOpenAnimation.src = this.imgClick.target.src;
+                this.grandePhoto = this.imgOpenAnimation;
                 setTimeout(()=>{
                     this.openAnimation();
                 },50);
@@ -286,21 +289,58 @@ class Visiotheque{
     //DONNE LE LEFT ET LE RIGHT À L'IMAGE ET À LA LÉGENDE
     positionneCurrentPhoto(){
         var currentPhoto = this.imgCollection[this.currentPhoto],
-            photoDimension = {"height" : currentPhoto.naturalHeight, "width" : currentPhoto.naturalWidth},
-            screenDimension = {"height" : this.windowHeight, "width" : this.windowWidth},
-            dataLegende = currentPhoto.getAttribute('data-legende'),
-            altLegende = currentPhoto.getAttribute('alt');
+            altLegende = currentPhoto.getAttribute('alt'),
+            dataLegende = currentPhoto.getAttribute('data-legende');
 
         //donne la valeur à la légende
         if(this.typeLegende != '') this.visothequeLegende.innerHTML = (this.typeLegende == 'alt')? altLegende : dataLegende;
-        
-        //left, right et dimension
-        this.imgOpenAnimation.style.maxHeight = 'calc(100% - ' + (this.visothequeLegende.offsetHeight + 30) + 'px)';
+                
+        //variable de calcul
+        var photoDimension = {"height" : this.grandePhoto.naturalHeight, "width" : this.grandePhoto.naturalWidth},
+            zoneDimension = {
+                "height" : (this.background.offsetHeight - this.visothequeLegende.offsetHeight - 34),
+                "width" : (this.background.offsetWidth - 10)
+            },
+            deltaVertical = photoDimension['height'] - zoneDimension['height'],
+            deltaHorizontal = photoDimension['width'] - zoneDimension['width'],
+            maxDelta = (Math.abs(deltaVertical) > Math.abs(deltaHorizontal))? deltaVertical : deltaHorizontal;
+                
+        //calcul des décalages en left et right
+        if(deltaVertical > 0 || deltaHorizontal > 0){
+            var decalageLeft = 5,
+                decalageTop = 5;
+            
+            //photo typé portrait
+            if(Math.abs(deltaVertical) > Math.abs(deltaHorizontal)) decalageLeft = (zoneDimension['width'] - (photoDimension['width'] * zoneDimension['height'] / photoDimension['height'])) / 2;
+            
+            //photo typé paysage
+            if(Math.abs(deltaVertical) < Math.abs(deltaHorizontal)) decalageTop = (zoneDimension['height'] - (photoDimension['height'] * zoneDimension['width'] / photoDimension['width'])) / 2;
+            
+            //on attribut les valeurs
+            this.imgOpenAnimation.style.left = decalageLeft + 'px';
+            this.imgOpenAnimation.style.top = decalageTop + 'px';
+        }
+                
+        //hauteur et largeur de l'image
+        this.imgOpenAnimation.style.maxHeight = 'calc(100% - ' + (this.visothequeLegende.offsetHeight + 34) + 'px)';
         this.imgOpenAnimation.style.maxWidth = 'calc(100% - 10px)';
-        this.imgOpenAnimation.style.top = '5px';
-        this.imgOpenAnimation.style.left = '5px';
-
+        
     }
+    
+    //FERMETURE DE LA VISIONNEUSE
+    closeVisiotheque(){
+        this.background.style.backgroundColor = 'rgba(0,0,0,0)';
+        this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].style.top + 'px';
+        this.imgOpenAnimation.style.left = this.imgCollection[this.currentPhoto].style.left + 'px';
+        this.imgOpenAnimation.style.maxHeight = this.imgCollection[this.currentPhoto].offsetHeight + 'px';
+        this.imgOpenAnimation.style.maxWidth = this.imgCollection[this.currentPhoto].offsetWidth + 'px';
+        var sleepToclose = setTimeout(()=>{
+            this.background.style.display = 'none';
+            this.imgOpenAnimation.style.top = null;
+            this.imgOpenAnimation.style.left = null;
+        },500);
+    }
+    
 
     //RETOURNE LE DÉCALAGE DU SCROLL
     getScrollPosition(){

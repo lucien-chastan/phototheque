@@ -35,7 +35,7 @@ Lancer la création de la photothèque
 
 ```javascript
 
-//exemple full option
+//utilisation en full option
 window.onload = function (){
 	MyPhototheque = new Phototheque(
 		'#MyPhototheque',
@@ -51,7 +51,7 @@ window.onload = function (){
  	);
  }
  
- //exemple option minimal
+ //utilisation en option minimal
  window.onload = function (){
 	MyPhototheque = new Phototheque('#MyPhototheque');
  }
@@ -70,5 +70,5 @@ window.onload = function (){
 - `"visiotheque-option"` : option de la visiothèque
 	+ `"legende"` : défini la légende que l'on va afficher
 		* `"none"` : pas de légende
-		* `"alt"` : on prend la balise alt
-		* `"data-legende"` : on prend l'attribut data-legende [valeur par defaut]
+		* `"alt"` : on prend l'attribut `alt`
+		* `"data-legende"` : on prend l'attribut `data-legende` *[valeur par defaut]*
