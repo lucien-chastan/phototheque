@@ -308,6 +308,7 @@ class Visiotheque{
                 
         //calcul des décalages en left et right
         if(deltaVertical > 0 || deltaHorizontal > 0){
+            //si notre photo à au moins une dimension suprérieur au cadre
             var decalageLeft = 5,
                 decalageTop = 5;
             
@@ -320,6 +321,10 @@ class Visiotheque{
             //on attribut les valeurs
             this.imgOpenAnimation.style.left = decalageLeft + 'px';
             this.imgOpenAnimation.style.top = decalageTop + 'px';
+        }else{
+            //si notre image naturel est plus petite que la zone d'affichage            
+            this.imgOpenAnimation.style.left = (zoneDimension['width'] - photoDimension['width']) / 2 + 'px';
+            this.imgOpenAnimation.style.top = (zoneDimension['height'] - photoDimension['height']) / 2 + 'px';
         }
                 
         //hauteur et largeur de l'image
