@@ -1,5 +1,5 @@
 //DÉFINITION DE LA CLASSE PHOTOTHEQUE
-class Phototheque{
+class Phototheque {
 
     constructor(element, option){
         this.groupImg = document.querySelector(element);
@@ -181,7 +181,7 @@ class Visiotheque{
         //attribution des events click sur les image
         this.addEvents();
         
-        window.addEventListener('keypress',  (e)=>{this.visiothequeKeySlide(e)});
+        window.addEventListener('keypress',  (e)=>{this.visiothequeKeyPresse(e)});
     }
 
     //DÉFINI LES OPTIONS DE LA VISIONNEUSE
@@ -239,7 +239,7 @@ class Visiotheque{
             this.background.style.backgroundColor = 'rgba(0,0,0,0.8)';
 
             //affichage d'un loader
-            this.loader.style.backgroundColor = 'rgba(255,255,255,1)';
+            this.showLoader(true);
 
             //on charge la nouvelle source de l'image
             if(img.target.getAttribute('data-full')){
@@ -271,7 +271,7 @@ class Visiotheque{
             };
 
         //on cache le loader
-        this.loader.style.backgroundColor = 'rgba(255,255,255,0)';
+        this.showLoader(false);
 
         //attribut de l'imgAnimationOpen            
         this.imgOpenAnimation.style.display = 'block';
@@ -293,7 +293,11 @@ class Visiotheque{
         var currentPhoto = this.imgCollection[this.currentPhoto],
             altLegende = currentPhoto.getAttribute('alt'),
             dataLegende = currentPhoto.getAttribute('data-legende');
-
+        
+        
+        //on charge en cache les photos suivantes et précédente
+        this.cachePhotos();
+        
         //donne la valeur à la légende
         if(this.typeLegende != '') this.visothequeLegende.innerHTML = (this.typeLegende == 'alt')? altLegende : dataLegende;
                 
@@ -334,34 +338,84 @@ class Visiotheque{
         
     }
     
-    
-    //FONCTION DE SLIDE AU KEYPRESS
-    visiothequeKeySlide(e){
-        if(e.keyCode == 39) this.visiothequeSlider('right');
-        if(e.keyCode == 37) this.visiothequeSlider('left');
+    //CHARGE L'IMAGE SUIVANTE ET L'IMAGE PRÉCÉDENTE DE L'IMAGE COURANTE
+    cachePhotos(){
+        //photo précédente
+        if(this.currentPhoto > 0){
+            this.photoPrecedente = new Image();
+            if(this.imgCollection[this.currentPhoto - 1].getAttribute('data-full')) this.photoPrecedente.src = this.imgCollection[this.currentPhoto - 1].getAttribute('data-full');
+            else this.photoPrecedente.src = this.imgCollection[this.currentPhoto - 1].src;
+        }
+        //photo suivante
+        if(this.currentPhoto < this.imgCollection.length - 1){
+            this.photoSuivante = new Image();
+            if(this.imgCollection[parseInt(this.currentPhoto) + 1].getAttribute('data-full')) this.photoSuivante.src = this.imgCollection[parseInt(this.currentPhoto) + 1].getAttribute('data-full');
+            else this.photoSuivante.src = this.imgCollection[parseInt(this.currentPhoto) + 1].src;
+        }
     }
     
+    //FONCTION DE SLIDE AU KEYPRESS
+    visiothequeKeyPresse(e){
+        if(e.keyCode == 39) this.visiothequeSlider('right');
+        if(e.keyCode == 37) this.visiothequeSlider('left');
+        if(e.keyCode == 27) this.closeVisiotheque();
+    }
+    
+    //FONCTION POUR AFFICHER LE LOADER
+    showLoader(yn){
+        this.loader.style.backgroundColor = (yn)? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0)';
+    }
+    
+    //FONCTION SLIDE DROITE GAUCHE DE LA VISOTHEQUE
     visiothequeSlider(direction){
         var decLeft = (direction == 'left')? 150 : -150;
-                
+
         //si nous ne somme pas sur les bords
         if((this.currentPhoto > 0 || direction == 'right') && (this.currentPhoto < (this.imgCollection.length - 1) || direction == 'left')){
             
-            //animation de slide
+            //on définie la prochaine photo à afficher
+            this.currentPhoto = (direction == 'left')? (this.currentPhoto - 1) : (parseInt(this.currentPhoto) + 1);
+            
+            //animaton étape 1 : la photo par en transparence
             this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s';
             this.imgOpenAnimation.style.left = this.imgOpenAnimation.offsetLeft + decLeft + 'px';
             this.imgOpenAnimation.style.opacity = 0;
             
-            console.log(this.currentPhoto);
-            
             var sleepAnimation = setTimeout(()=>{
-                this.imgOpenAnimation.style.transition = 'all 0s';
-                this.currentPhoto = (direction == 'left')? (this.currentPhoto - 1) : (parseInt(this.currentPhoto) + 1);
-                console.log(this.currentPhoto);
-            },300);
-            
+                
+                //on charge la nouvelle photo dans imgOpenAnimation
+                this.imgOpenAnimation.src = (direction == 'right')? this.photoSuivante.src : this.photoPrecedente.src;
+                
+                //on affiche le loader
+                this.showLoader(true);
+                
+                //on charge la source de l'image
+                this.imgOpenAnimation.onload = ()=>{
+                    
+                    //on cache le loader
+                    this.showLoader(false);
+                    
+                    //on coupe les transitions
+                    this.imgOpenAnimation.style.transition = 'all 0s';
+                    
+                    //on positionne la nouvelle photo
+                    this.positionneCurrentPhoto();
+                    
+                    //animation étape 2 : on ramène la photo à deux fois sa valeur de left
+                    setTimeout(()=>{
+                        var initialDecalage = this.imgOpenAnimation.offsetLeft;
+                        this.imgOpenAnimation.style.left = this.imgOpenAnimation.offsetLeft - decLeft + 'px';
+                        
+                        //animation étape 3 : on affiche la nouvelle photo
+                        setTimeout(()=>{
+                            this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s';
+                            this.imgOpenAnimation.style.opacity = 1;
+                            this.imgOpenAnimation.style.left = initialDecalage + 'px';
+                        },30);
+                    }, 30);
+                }
+            }, 300);
         }
-        
     }
     
     //FERMETURE DE LA VISIONNEUSE
@@ -379,36 +433,12 @@ class Visiotheque{
             this.imgOpenAnimation.style.top = null;
             this.imgOpenAnimation.style.left = null;
             this.imgOpenAnimation.style.transition = null;
-        },500);
+        }, 500);
     }
     
 
     //RETOURNE LE DÉCALAGE DU SCROLL
     getScrollPosition(){
         return Array((document.documentElement && document.documentElement.scrollLeft) || window.pageXOffset || self.pageXOffset || document.body.scrollLeft,(document.documentElement && document.documentElement.scrollTop) || window.pageYOffset || self.pageYOffset || document.body.scrollTop);
-    }
-
-    //RETOURNE LES DIMENSIONS DE L'ÉCRAN QUELQUE SOIT LE NAVIGATEUR
-    windowWidth(){
-        if(window.innerWidth)
-            return window.innerWidth;
-        else if (document.documentElement.clientWidth)
-            return document.documentElement.clientWidth;
-        else if(document.body.clientWidth)
-            return document.body.clientWidth;
-        else 
-            return -1;
-    }
-
-    // Retourne la hauteur de l'écran
-    windowHeight(){
-        if(window.innerHeight)
-            return window.innerHeight;
-        else if (document.documentElement.clientHeight)
-            return document.documentElement.clientHeight;
-        else if(document.body.clientHeight)
-            return document.body.clientHeight;
-        else 
-            return -1;
     }
 }
