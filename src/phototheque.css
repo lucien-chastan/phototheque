@@ -29,7 +29,7 @@
 }
 
 .visiotheque-img-open-animation{
-    transition: all 0.3s;
+    transition: top 0.3s, left 0.3s, max-height 0.3s, max-width 0.3s, opacity 0.5s;
     position: fixed;
     display: none;
     object-fit: cover;

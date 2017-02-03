@@ -276,11 +276,12 @@ class Visiotheque{
         this.imgOpenAnimation.style.display = 'block';
         this.imgOpenAnimation.style.maxHeight = this.imgClick.target.offsetHeight + 'px';
         this.imgOpenAnimation.style.maxWidth = this.imgClick.target.offsetWidth + 'px';
+        this.imgOpenAnimation.style.opacity = 1;
         this.imgOpenAnimation.style.top = positionImg['top'] + 'px';
         this.imgOpenAnimation.style.left = positionImg['left'] + 'px';
-        this.imgOpenAnimation.style.transition = 'all 0.3s';
 
         var sleepToZoom = setTimeout(()=>{
+            this.imgOpenAnimation.style.transition = 'top 0.3s, left 0.3s, max-height 0.3s, max-width 0.3s, opacity 0.5s';
             this.positionneCurrentPhoto();
         },50);
     }
@@ -329,15 +330,19 @@ class Visiotheque{
     
     //FERMETURE DE LA VISIONNEUSE
     closeVisiotheque(){
+        var scrollPosition = this.getScrollPosition();
+        
         this.background.style.backgroundColor = 'rgba(0,0,0,0)';
-        this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].style.top + 'px';
-        this.imgOpenAnimation.style.left = this.imgCollection[this.currentPhoto].style.left + 'px';
+        this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].offsetTop - scrollPosition[1] + 'px';
+        this.imgOpenAnimation.style.left = this.imgCollection[this.currentPhoto].offsetLeft - scrollPosition[0] + 'px';
         this.imgOpenAnimation.style.maxHeight = this.imgCollection[this.currentPhoto].offsetHeight + 'px';
         this.imgOpenAnimation.style.maxWidth = this.imgCollection[this.currentPhoto].offsetWidth + 'px';
+        this.imgOpenAnimation.style.opacity = 0;
         var sleepToclose = setTimeout(()=>{
             this.background.style.display = 'none';
             this.imgOpenAnimation.style.top = null;
             this.imgOpenAnimation.style.left = null;
+            this.imgOpenAnimation.style.transition = null;
         },500);
     }
     
