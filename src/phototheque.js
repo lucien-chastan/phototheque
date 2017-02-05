@@ -216,6 +216,13 @@ class Visiotheque{
         this.visothequeLegende = document.createElement('div');
         this.visothequeLegende.className = 'visiotheque-legende';
         this.background.appendChild(this.visothequeLegende);
+        
+        //création de la croix fermante
+        this.visiothequeCloseControl = document.createElement('img');
+        this.visiothequeCloseControl.className = 'visiotheque-close-control visiotheque-control';
+        this.visiothequeCloseControl.src = 'icon/fermer.svg';
+        this.visiothequeCloseControl.addEventListener('click', this.closeVisiotheque);
+        this.background.appendChild(this.visiothequeCloseControl);
     }
 
 
@@ -236,9 +243,10 @@ class Visiotheque{
         //temps d'attente avant de faire la fondu au noir
         var sleepToOpen = setTimeout(()=>{
 
-            //affichage du background
+            //affichage du background et les controles
             this.background.style.backgroundColor = 'rgba(0,0,0,0.8)';
-
+            this.visiothequeCloseControl.style.opacity = 1;
+            
             //affichage d'un loader
             this.showLoader(true);
 
@@ -429,6 +437,8 @@ class Visiotheque{
         var scrollPosition = this.getScrollPosition();
                 
         this.background.style.backgroundColor = 'rgba(0,0,0,0)';
+        this.visiothequeCloseControl.style.opacity = 0;
+        
         this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].offsetTop - scrollPosition[1] + 'px';
         this.imgOpenAnimation.style.left = this.imgCollection[this.currentPhoto].offsetLeft - scrollPosition[0] + 'px';
         this.imgOpenAnimation.style.maxHeight = this.imgCollection[this.currentPhoto].offsetHeight + 'px';

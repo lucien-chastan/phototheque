@@ -51,6 +51,18 @@
     animation-iteration-count: infinite;
 }
 
+.visiotheque-control {
+    transition: transform 0.3s opacity 1s;
+    position: fixed;
+    opacity: 0;
+    cursor: pointer;}
+.visiotheque-control:hover{transform: scale(1.10);}
+
+.visiotheque-close-control{
+    top: 5px;
+    left: 5px;
+}
+
 .visiotheque-legende {
     color: rgb(255,255,255);
     text-align: center;
