@@ -180,7 +180,7 @@ class Visiotheque{
 
         //attribution des events click sur les image
         this.addEvents();
-        
+                
         window.addEventListener('keypress',  (e)=>{this.visiothequeKeyPresse(e)});
     }
 
@@ -198,6 +198,7 @@ class Visiotheque{
         this.background = document.createElement('div');
         this.background.className = 'visiotheque-background';
         this.background.addEventListener('click', ()=>{this.closeVisiotheque()});
+        this.background.addEventListener('mousemove', (event)=>{this.hideControl(event);});
         this.element.appendChild(this.background);
 
         //création du loader
@@ -351,7 +352,7 @@ class Visiotheque{
         
         
         //on charge en cache les photos suivantes et précédente
-        this.cachePhotos();
+        this.photosInCache();
         
         //donne la valeur à la légende
         if(this.typeLegende != '') this.visothequeLegende.innerHTML = (this.typeLegende == 'alt')? altLegende : dataLegende;
@@ -394,7 +395,7 @@ class Visiotheque{
     }
     
     //CHARGE L'IMAGE SUIVANTE ET L'IMAGE PRÉCÉDENTE DE L'IMAGE COURANTE
-    cachePhotos(){
+    photosInCache(){
         //photo précédente
         if(this.currentPhoto > 0){
             this.photoPrecedente = new Image();
@@ -409,6 +410,18 @@ class Visiotheque{
         }
     }
     
+    //CACHE OU AFFICHE LES CONTRÔLES DROITE ET GAUCHE
+    hideControl(event){
+        
+        if(event.clientX < 100 || event.clientX > (this.background.offsetWidth - 100)){
+            this.visiothequeLeftControl.style.transform = 'translateX(0px)';
+            this.visiothequeRightControl.style.transform = 'translateX(0px)';
+        }else{
+            this.visiothequeLeftControl.style.transform = 'translateX(-50px)';
+            this.visiothequeRightControl.style.transform = 'translateX(50px)';
+        }
+    }
+
     //FONCTION DE SLIDE AU KEYPRESS
     visiothequeKeyPresse(e){
         if(e.keyCode == 39) this.visiothequeSlider('right');

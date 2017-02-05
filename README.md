@@ -4,6 +4,18 @@ Photothèque est une librairie Js/Css qui permet de créer des galeries photo (�
 
 **Attention : Librairie en développement, ne pas utiliser en production**
 
+## Fonctionnalité
+
+- La gallerie rogne au mieux les images pour les afficher sur toute la ligne
+- La galerie peut s'accompagner ou pas d'une visoneuse
+- La gouttière entre les photos est configurable
+- Permet de mettre des vignettes dans la galerie et les photos hautes résolutions en visionneuse
+- On peut intégrer une légende à afficher dans la viosionneuse
+- Prise en charge des flêches droite et gauche pour passer les photos (et échape pour quitter la visonneuse)
+- *[Bientôt]* La visionneuse peut être utiliser sans la gallerie
+- *[Bientôt]* Prise en charge du swift sur smartphone pour passe les photos
+- *[Bientôt]* Possibilité d'intégrer un bouton "play" pour faire défiller les photos (avec réglage de la vitesse de défilement)
+
 ## Démonstration
 
 Vous pouvez consulter une démonstration en ligne [ici](http://www.lucien-chastan.fr/phototheque/index.html)
