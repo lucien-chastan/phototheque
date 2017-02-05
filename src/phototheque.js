@@ -408,20 +408,25 @@ class Visiotheque{
                         
                         //animation étape 3 : on affiche la nouvelle photo
                         setTimeout(()=>{
-                            this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s';
+                            this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s, max-height 0.3s, max-width 0.3s, opacity 0.5s, top 0.3s';
                             this.imgOpenAnimation.style.opacity = 1;
                             this.imgOpenAnimation.style.left = initialDecalage + 'px';
                         },30);
                     }, 30);
                 }
             }, 300);
+        }else{
+            //on montre qu'on est en buté
+            var initialDecalage = this.imgOpenAnimation.offsetLeft;
+            this.imgOpenAnimation.style.left = initialDecalage + decLeft / 2 + 'px';
+            setTimeout(()=>{this.imgOpenAnimation.style.left = initialDecalage + 'px'},300);
         }
     }
     
     //FERMETURE DE LA VISIONNEUSE
     closeVisiotheque(){
         var scrollPosition = this.getScrollPosition();
-        
+                
         this.background.style.backgroundColor = 'rgba(0,0,0,0)';
         this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].offsetTop - scrollPosition[1] + 'px';
         this.imgOpenAnimation.style.left = this.imgCollection[this.currentPhoto].offsetLeft - scrollPosition[0] + 'px';
