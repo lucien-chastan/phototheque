@@ -2,22 +2,21 @@
 
 .phototheque {
     line-height: 0;
-    z-index: 2;
-}
+    z-index: 2;}
 
 .phototheque > img {
     object-fit: cover;
     cursor: pointer;
-    transition: filter 0.3s;
-}
+    will-change: filter;
+    transition: filter 0.3s;}
 
 .phototheque > img:hover {
-    filter: brightness(1.2);
-}
+    filter: brightness(1.2);}
 
 
 /*STYLE DE LA VISIOTHEQUE*/
 .visiotheque-background {
+    will-change: background-color;
     transition: background-color 0.3s;
     position: fixed;
     top: 0;
@@ -25,20 +24,20 @@
     height: 100%;
     width: 100%;
     display: none;
-    background-color:rgba(0,0,0,0);
-}
+    background-color:rgba(0,0,0,0);}
 
 .visiotheque-img-open-animation{
+    will-change: top, left, max-height, max-width, opacity;
     transition: top 0.3s, left 0.3s, max-height 0.3s, max-width 0.3s, opacity 0.5s;
     position: fixed;
     display: none;
     object-fit: cover;
-    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);
-}
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);}
 
 .visiotheque-loader {
     width: 40px;
     height: 40px;
+    will-change: background-color, transform;
     background-color: rgb(255,255,255,0);
     transition: background-color 0.5s;
     border-radius: 50%;
@@ -48,20 +47,7 @@
     transition-timing-function: ease;
     animation-duration: 1s;
     animation-name: visiotheque-loader;
-    animation-iteration-count: infinite;
-}
-
-.visiotheque-control {
-    transition: transform 0.3s opacity 1s;
-    position: fixed;
-    opacity: 0;
-    cursor: pointer;}
-.visiotheque-control:hover{transform: scale(1.10);}
-
-.visiotheque-close-control{
-    top: 5px;
-    left: 5px;
-}
+    animation-iteration-count: infinite;}
 
 .visiotheque-legende {
     color: rgb(255,255,255);
@@ -71,9 +57,29 @@
     bottom: 12px;
     letter-spacing: 0.01rem;
     width: 100%;
-    position: fixed;
-}
+    position: fixed;}
 
+.visiotheque-control {
+    will-change: transform, opacity;
+    transition: transform 0.3s, opacity 0.3s;
+    position: fixed;
+    opacity: 0;
+    cursor: pointer;}
+.visiotheque-control:hover{transform: scale(1.10);}
+
+.visiotheque-close-control{
+    top: 5px;
+    left: 5px;}
+
+.visiotheque-left-control{
+    top: calc(50% - 20px);
+    left: 5px;}
+
+.visiotheque-right-control{
+    top: calc(50% - 20px);
+    left: calc(100% - 45px);}
+
+/*Animation du loader*/
 @keyframes visiotheque-loader {
     from {
         opacity: 0.5;

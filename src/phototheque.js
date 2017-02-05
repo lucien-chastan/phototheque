@@ -218,11 +218,55 @@ class Visiotheque{
         this.background.appendChild(this.visothequeLegende);
         
         //création de la croix fermante
-        this.visiothequeCloseControl = document.createElement('img');
+        this.visiothequeCloseControl = document.createElement('div');
         this.visiothequeCloseControl.className = 'visiotheque-close-control visiotheque-control';
-        this.visiothequeCloseControl.src = 'icon/fermer.svg';
+        this.visiothequeCloseControl.innerHTML = 
+            `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg viewBox="0 0 40 40" height="11.288889mm" width="11.288889mm">
+                <g transform="matrix(1.115436,0,0,1.115436,-38.309857,-66.237104)">
+                    <circle style="fill:#000000;fill-opacity:0.78431373;fill-rule:evenodd;stroke:none;" cx="52.275394" cy="77.312462" r="17.930208" />
+                    <g transform="matrix(1.338671,0,0,1.338671,-18.718359,-25.169291)" style="stroke-width:1.49401903;stroke-miterlimit:4;stroke-dasharray:none">
+                        <path d="M 47.586581,71.108416 58.479437,82.001272" style="fill:none;stroke:#ffffff;stroke-width:1.49401903;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                        <path style="fill:none;;stroke:#ffffff;stroke-width:1.49401903;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 58.479437,71.108416 47.586581,82.001272"/>
+                    </g>
+                </g>
+            </svg>`;
         this.visiothequeCloseControl.addEventListener('click', this.closeVisiotheque);
         this.background.appendChild(this.visiothequeCloseControl);
+        
+        //création de la flèche gauche
+        this.visiothequeLeftControl = document.createElement('div');
+        this.visiothequeLeftControl.className = 'visiotheque-left-control visiotheque-control';
+        this.visiothequeLeftControl.innerHTML = 
+            `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
+                <g transform="translate(-34.345186,-106.41619)">
+                    <circle r="17.930208" cy="124.3464" cx="52.275394" style="fill:#000000;fill-opacity:0.78431373;fill-rule:evenodd;stroke:none;"/>
+                    <path style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 62.58639,124.3464 -20.621992,0" id="path7052" />
+                    <path d="m 49.442076,131.82408 -7.477678,-7.47768 7.477678,-7.47767" style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                </g>
+            </svg>
+            `;
+        this.visiothequeLeftControl.addEventListener('click', (event)=>{this.visiothequeSlider('left');event.stopPropagation()});
+        this.background.appendChild(this.visiothequeLeftControl);
+        
+        //création de la flèche droite
+        this.visiothequeRightControl = document.createElement('div');
+        this.visiothequeRightControl.className = 'visiotheque-right-control visiotheque-control';
+        this.visiothequeRightControl.innerHTML = 
+            `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
+                <g transform="translate(-34.345186,-155.05203)">
+                    <circle style="fill:#000000;fill-opacity:0.78431373;fill-rule:evenodd;stroke:none;" cx="-52.275394" cy="172.98224" r="17.930208" transform="scale(-1,1)" />
+                    <path d="m 41.964399,172.98222 20.621992,0" style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                    <path style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 55.108713,180.4599 7.477678,-7.47768 -7.477678,-7.47767"/>
+                </g>
+            </svg>
+            `;
+        this.visiothequeRightControl.addEventListener('click', (event)=>{this.visiothequeSlider('right');event.stopPropagation()});
+        this.background.appendChild(this.visiothequeRightControl);
+        
+        
     }
 
 
@@ -246,6 +290,8 @@ class Visiotheque{
             //affichage du background et les controles
             this.background.style.backgroundColor = 'rgba(0,0,0,0.8)';
             this.visiothequeCloseControl.style.opacity = 1;
+            this.visiothequeLeftControl.style.opacity = 1;
+            this.visiothequeRightControl.style.opacity = 1;
             
             //affichage d'un loader
             this.showLoader(true);
@@ -436,9 +482,13 @@ class Visiotheque{
     closeVisiotheque(){
         var scrollPosition = this.getScrollPosition();
                 
+        //disparition du fond et des contrôles
         this.background.style.backgroundColor = 'rgba(0,0,0,0)';
         this.visiothequeCloseControl.style.opacity = 0;
+        this.visiothequeLeftControl.style.opacity = 0;
+        this.visiothequeRightControl.style.opacity = 0;
         
+        //animation de fermeture de la photo
         this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].offsetTop - scrollPosition[1] + 'px';
         this.imgOpenAnimation.style.left = this.imgCollection[this.currentPhoto].offsetLeft - scrollPosition[0] + 'px';
         this.imgOpenAnimation.style.maxHeight = this.imgCollection[this.currentPhoto].offsetHeight + 'px';
