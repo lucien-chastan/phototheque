@@ -209,6 +209,7 @@ class Visiotheque{
         this.imgOpenAnimation = document.createElement('img');
         this.imgOpenAnimation.className = 'visiotheque-img-open-animation';
         this.imgOpenAnimation.setAttribute('alt','');
+        this.imgOpenAnimation.addEventListener('click', (event)=>{event.stopPropagation()});
         this.background.appendChild(this.imgOpenAnimation);
 
         //création de la boite à légende
