@@ -9,12 +9,22 @@ class Phototheque {
         this.ratioTable = [];
         this.gridRatio = this.photothequeWidth / parseInt(this.maxHeight);
         this.sommeRatio = 0;
+        this.nbLoadPhoto = 0;
 
-        //Initialise les options de la phototheque et lance le rendu
-        this.setOption(option);
-
-        //On met en place la visionneuse si l'option est active
-        if(this.visiotheque) this.visionneuse = new Visiotheque(element, option['visiotheque-option']);
+        //construit et affiche le laoder de la phototheque
+        this.svgLoadPhototheque = document.createElement('div');
+        this.svgLoadPhototheque.className = 'phototheque-div-loader';
+        this.svgLoadPhototheque.innerHTML = 
+            `<svg viewBox="0 0 105 105" height="35px" width="35px">
+                <rect class="phototheque-rect-load" id="phototheque-rect-load-1" y="0" x="0" height="49" width="39" style="fill:#000000;fill-opacity:0.8;stroke:none" />
+                <rect class="phototheque-rect-load" id="phototheque-rect-load-2" y="0" x="46.52" height="49.12" width="59.09" style="fill:#000000;fill-opacity:0.8;stroke:none"/>
+                <rect class="phototheque-rect-load" id="phototheque-rect-load-3" y="56.43" x="0" height="49.18" width="59.09" style="fill:#000000;fill-opacity:0.8;stroke:none" />
+                <rect class="phototheque-rect-load" id="phototheque-rect-load-4" y="56.43" x="66.34" height="49.18" width="39.3" style="fill:#000000;fill-opacity:0.8;stroke:none"/>
+            </svg>`;
+        this.groupImg.appendChild(this.svgLoadPhototheque);
+        
+        //On charge les images de la phototheque
+        this.loadPhototheque(element, option);
 
         //on place un écouteur sur sur le resize de l'élément window
         window.addEventListener('resize', ()=>{this.defineLigne()});
@@ -22,7 +32,7 @@ class Phototheque {
 
 
     //CONFIGURE OU RECONFIGURE LES OPTIONS DE LA PHOTOTHEQUE
-    setOption(option){
+    setOption(element, option){
         //si nous n'avons pas d'option;
         option = (option)? option : [];
 
@@ -32,6 +42,9 @@ class Phototheque {
         this.lastRow = (option['lastRow'])? option['lastRow'] : (this.lastRow)? this.lastRow : 'left';
         this.visiotheque = (option['visiotheque'])? option['visiotheque'] : (this.visiotheque)? this.visiotheque : true;
 
+        //On met en place la visionneuse si l'option est active
+        if(this.visiotheque) this.visionneuse = new Visiotheque(element, option['visiotheque-option']);
+        
         //on lance la définition des lignes et la retaille des images
         this.initStyle();
         this.initImgHeight(this.maxHeight);
@@ -51,11 +64,38 @@ class Phototheque {
 
         //style sur les images
         for(var i = 0 ; i < this.nbImg ; i++){
+            this.allImg[i].style.display = 'inline-block';
             this.allImg[i].style.marginBottom = this.gouttiere + 'px';
         }
+        
+        this.animationLoadPhototheque();
     }
 
-
+    //CHARGE LES PHOTOS ET LES AFFICHES À LA FIN
+    loadPhototheque(element, option){
+        
+        for(var i = 0 ; i < this.allImg.length ; i ++){
+            var loadImg = new Image();
+            loadImg.src = this.allImg[i].src;
+            loadImg.onload = ()=> {
+                this.nbLoadPhoto++;
+                if(this.nbLoadPhoto == this.allImg.length) this.setOption(element, option);
+            }
+        }
+    }
+    
+    //ANIMATION DE L'APPARITION DES PHOTOS À LA FIN DU CHARGEMENT DES PHOTOS
+    animationLoadPhototheque(){
+        
+        //on supprime le loader de la phototheque
+        this.groupImg.removeChild(this.svgLoadPhototheque);
+        
+        //on affiche les photos avec une animation
+        for(var i = 0 ; i < this.allImg.length ; i++){
+            ((i)=>{setTimeout(()=>{this.allImg[i].style.opacity = '1';},(Math.random() * 300));})(i);
+        }
+    }
+    
     //FONCTION POUR TAILLER LES PHOTOS EN HAUTEUR
     initImgHeight(imgHeight){
         for(var i = 0 ; i < this.nbImg ; i++){
@@ -221,6 +261,7 @@ class Visiotheque{
         //création de la croix fermante
         this.visiothequeCloseControl = document.createElement('div');
         this.visiothequeCloseControl.className = 'visiotheque-close-control visiotheque-control';
+        this.visiothequeCloseControl.title = 'Fermer';
         this.visiothequeCloseControl.innerHTML = 
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 40 40" height="11.288889mm" width="11.288889mm">
@@ -238,6 +279,7 @@ class Visiotheque{
         //création de la flèche gauche
         this.visiothequeLeftControl = document.createElement('div');
         this.visiothequeLeftControl.className = 'visiotheque-left-control visiotheque-control';
+        this.visiothequeLeftControl.title = 'Photo suivante';
         this.visiothequeLeftControl.innerHTML = 
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
@@ -254,6 +296,7 @@ class Visiotheque{
         //création de la flèche droite
         this.visiothequeRightControl = document.createElement('div');
         this.visiothequeRightControl.className = 'visiotheque-right-control visiotheque-control';
+        this.visiothequeRightControl.title = 'Photo précédente';
         this.visiothequeRightControl.innerHTML = 
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   id="svg7390"
+   viewBox="0 0 156.57364 156.57364"
+   height="44.18856mm"
+   width="44.18856mm">
+  <defs
+     id="defs7392">
+    <radialGradient
+       r="78.286819"
+       fy="110.15672"
+       fx="111.53614"
+       cy="110.15672"
+       cx="111.53614"
+       gradientTransform="matrix(1.7396272,0,-1.0071919e-8,1.7406452,152.10477,-102.86206)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient7301"
+       xlink:href="#linearGradient7333" />
+    <linearGradient
+       id="linearGradient7333">
+      <stop
+         style="stop-color:#ff812c;stop-opacity:1"
+         offset="0"
+         id="stop7337" />
+      <stop
+         style="stop-color:#672178;stop-opacity:1"
+         offset="1"
+         id="stop7335" />
+    </linearGradient>
+    <filter
+       height="1.1546144"
+       y="-0.077307262"
+       width="1.1936399"
+       x="-0.09681993"
+       id="filter7164"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur7166"
+         stdDeviation="1.5840909" />
+    </filter>
+    <filter
+       height="1.1546144"
+       y="-0.077307254"
+       width="1.1286807"
+       x="-0.06434036"
+       id="filter7168"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur7170"
+         stdDeviation="1.5840909" />
+    </filter>
+    <filter
+       height="1.1546144"
+       y="-0.077307232"
+       width="1.1286807"
+       x="-0.06434036"
+       id="filter7172"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur7174"
+         stdDeviation="1.5840909" />
+    </filter>
+    <filter
+       height="1.1546144"
+       y="-0.077307232"
+       width="1.1936399"
+       x="-0.09681993"
+       id="filter7176"
+       style="color-interpolation-filters:sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur7178"
+         stdDeviation="1.5840909" />
+    </filter>
+  </defs>
+  <metadata
+     id="metadata7395">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(3.1347656e-6,-2.7355964e-7)"
+     id="layer1">
+    <g
+       id="g7341"
+       transform="translate(-231.16904,-31.603502)">
+      <rect
+         rx="65.786819"
+         ry="65.786819"
+         y="31.603502"
+         x="231.16904"
+         height="156.57364"
+         width="156.57364"
+         id="rect7275"
+         style="fill:url(#radialGradient7301);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <rect
+         style="fill:#333333;fill-opacity:0.54377878;stroke:none;filter:url(#filter7164)"
+         id="rect7277"
+         width="39.266895"
+         height="49.17802"
+         x="258.65283"
+         y="59.087322" />
+      <rect
+         y="57.087322"
+         x="256.65283"
+         height="49.17802"
+         width="39.266895"
+         id="rect7279"
+         style="fill:#ffffff;stroke:none" />
+      <rect
+         y="59.087315"
+         x="305.16974"
+         height="49.178028"
+         width="59.089165"
+         id="rect7281"
+         style="fill:#333333;fill-opacity:0.54377878;stroke:none;filter:url(#filter7168)" />
+      <rect
+         style="fill:#ffffff;stroke:none"
+         id="rect7283"
+         width="59.089165"
+         height="49.178028"
+         x="303.16974"
+         y="57.087315" />
+      <rect
+         style="fill:#333333;fill-opacity:0.54377878;stroke:none;filter:url(#filter7172)"
+         id="rect7285"
+         width="59.089165"
+         height="49.17804"
+         x="258.65283"
+         y="115.51534" />
+      <rect
+         y="113.51534"
+         x="256.65283"
+         height="49.17804"
+         width="59.089165"
+         id="rect7287"
+         style="fill:#ffffff;stroke:none" />
+      <rect
+         y="115.51534"
+         x="324.992"
+         height="49.17804"
+         width="39.266895"
+         id="rect7289"
+         style="fill:#333333;fill-opacity:0.54377878;stroke:none;filter:url(#filter7176)" />
+      <rect
+         style="fill:#ffffff;stroke:none"
+         id="rect7291"
+         width="39.266895"
+         height="49.17804"
+         x="322.992"
+         y="113.51534" />
+      <path
+         id="path7293"
+         d="m 260.07564,60.51012 32.4213,0 -10e-6,42.33242 -32.42129,0 z"
+         style="fill:none;stroke:#b3b3b3" />
+      <path
+         style="fill:none;stroke:#b3b3b3"
+         d="m 306.59252,60.510116 52.24358,4e-6 -10e-6,42.33242 -52.24357,0 z"
+         id="path7295" />
+      <path
+         style="fill:none;stroke:#b3b3b3"
+         d="m 260.07564,116.93813 52.24356,0 -2e-5,42.33242 -52.24354,0 z"
+         id="path7297" />
+      <path
+         id="path7299"
+         d="m 326.41481,116.93813 32.42129,0 -2e-5,42.33242 -32.42127,2e-5 z"
+         style="fill:none;stroke:#b3b3b3" />
+    </g>
+  </g>
+</svg>

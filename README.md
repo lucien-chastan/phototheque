@@ -1,10 +1,10 @@
-# Phototheque
+# Photothèque
 
 Photothèque est une librairie Js/Css qui permet de créer des galeries photo (à la google image) responsive et configurable avec une visionneuse intégré
 
 **Attention : Librairie en développement, ne pas utiliser en production**
 
-## Fonctionnalité
+## Fonctionnalités
 
 - La gallerie rogne au mieux les images pour les afficher sur toute la ligne
 - La galerie peut s'accompagner ou pas d'une visoneuse
@@ -48,25 +48,21 @@ Lancer la création de la photothèque
 ```javascript
 
 //utilisation en full option
-window.onload = function (){
-	MyPhototheque = new Phototheque(
-		'#MyPhototheque',
-         {
-         	"maxHeight" : "200px",
-         	"gouttiere" : "3px",
-         	"lastRow" : "center",
-         	"visiotheque" : true,
-         	"visiotheque-option" : {
-         		"legende" : "data-legende"
-         	}
-     	}
- 	);
- }
+var MyPhototheque = new Phototheque(
+    '#MyPhototheque',
+     {
+        "maxHeight" : "200px",
+        "gouttiere" : "3px",
+        "lastRow" : "center",
+        "visiotheque" : true,
+        "visiotheque-option" : {
+            "legende" : "data-legende"
+        }
+    }
+);
  
  //utilisation en option minimal
- window.onload = function (){
-	MyPhototheque = new Phototheque('#MyPhototheque');
- }
+var MyPhototheque = new Phototheque('#MyPhototheque');
  
 ```
 

@@ -14,7 +14,7 @@
     <body>
         
         <div class="container">
-            <h1>Phototheque.Js</h1>
+            <h1><img src="icon/logo-phototheque.svg" class="logo-phototheque"> Phototheque.Js</h1>
             
             <p class="intro">
                 Librairie Js de création de galerie photo responsive et configurable<br>
@@ -41,20 +41,18 @@
         <script>
             
             //lancement de la phototheque à la fin du chargement de la page
-            window.onload = function (){
-                MyPhototheque = new Phototheque(
-                    '#MyPhototheque', //element contenant les images de la galerie
-                    {
-                        "maxHeight" : "200px", //hateur max des photos dans la gallerie
-                        "gouttiere" : "3px", //largeur de la gouttière entre les photos
-                        "lastRow" : "center", //left, center, right [par défaut : left]
-                        "visiotheque" : true, //défini si nous voulons ou pas une visionneuse pour nos photos
-                        "visiotheque-option" : {
-                            "legende" : "data-legende" //origine de la légende, alt, none ou data-legende
-                        }
+            var MyPhototheque = new Phototheque(
+                '#MyPhototheque', //element contenant les images de la galerie
+                {
+                    "maxHeight" : "200px", //hateur max des photos dans la gallerie
+                    "gouttiere" : "3px", //largeur de la gouttière entre les photos
+                    "lastRow" : "center", //left, center, right [par défaut : left]
+                    "visiotheque" : true, //défini si nous voulons ou pas une visionneuse pour nos photos
+                    "visiotheque-option" : {
+                        "legende" : "data-legende" //origine de la légende, alt, none ou data-legende
                     }
-                );
-            }
+                }
+            );
             
         </script>
     </body>

@@ -39,3 +39,9 @@ h1{
 .lien-github img{
     vertical-align: middle;
     height: 25px;}
+
+.logo-phototheque {
+    height: 40px;
+    margin-right: 5px;
+    vertical-align: text-top;
+}
