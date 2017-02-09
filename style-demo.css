@@ -9,7 +9,7 @@ body {
 h1{
     font-weight: normal;
     text-align: center;
-    margin-bottom: 8px;}
+    margin-bottom: 20px;}
 
 .para-credit{text-align: right;}
 
@@ -41,7 +41,8 @@ h1{
     height: 25px;}
 
 .logo-phototheque {
-    height: 40px;
+    height: 30px;
     margin-right: 5px;
-    vertical-align: text-top;
+    vertical-align: bottom;
+    margin-bottom: 5px;
 }
