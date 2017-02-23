@@ -29,7 +29,7 @@
             </p>
             
             <div id="MyPhototheque" class="phototheque">
-                <img src="http://www.lucien-chastan.fr/phototheque/vignette/img_1.jpg" data-full="http://www.lucien-chastan.fr/phototheque/img/img_1.jpg" data-legende="Assurage à Buis-les-Baronnies | David Blon©" alt="Assurage à Buis-les-Baronnies | David Blon©">
+                <img src="http://www.lucien-chastan.fr/phototheque/vignette/img_1.jpg" data-full="http://www.lucien-chastan.fr/phototheque/img/img_1.jpg" data-legende="Assurage à Buis-les-Baronnies | <a href='https://www.behance.net/tameran'>David Blon©</a>" alt="Assurage à Buis-les-Baronnies | David Blon©">
                 <img src="http://www.lucien-chastan.fr/phototheque/vignette/img_2.jpg" data-full="http://www.lucien-chastan.fr/phototheque/img/img_2.jpg" data-legende="Lucien au travail d'une voie | David Blon©" alt="Lucien au travail d'une voie | David Blon©">
                 <img src="http://www.lucien-chastan.fr/phototheque/vignette/img_3.jpg" data-full="http://www.lucien-chastan.fr/phototheque/img/img_3.jpg" data-legende="Rocher de Saint-Julien | David Blon©" alt="Rocher de Saint-Julien | David Blon©">
                 <img src="http://www.lucien-chastan.fr/phototheque/vignette/img_4.jpg" data-full="http://www.lucien-chastan.fr/phototheque/img/img_4.jpg" data-legende="Site d'escalade de Baume Rousse | David Blon©" alt="Site d'escalade de Baume Rousse | David Blon©">
@@ -56,7 +56,9 @@
                     "lastRow" : "center", //left, center, right [par défaut : left]
                     "visiotheque" : true, //défini si nous voulons ou pas une visionneuse pour nos photos
                     "visiotheque-option" : {
-                        "legende" : "data-legende" //origine de la légende, alt, none ou data-legende
+                        "legende" : "data-legende", //origine de la légende, alt, none ou data-legende
+                        "diaporama" : true, //true ou false si on veux qu'il y ai l'option diaporama dans la visiotheque
+                        "diaporama-timer" : 3 //temps entre les diapos en seconde
                     }
                 }
             );

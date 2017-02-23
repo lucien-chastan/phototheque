@@ -220,6 +220,9 @@ class Visiotheque{
 
         //attribution des events click sur les image
         this.addEvents();
+        
+        //propriété si le diaporama est lancé
+        this.runDiaporama = false;
                 
         window.addEventListener('keypress',  (e)=>{this.visiothequeKeyPresse(e)});
     }
@@ -228,6 +231,8 @@ class Visiotheque{
     setOption(option){
 
         this.typeLegende = (option['legende'])? option['legende'] : (this.typeLegende)? this.typeLegende : 'data-legende';
+        this.diaporama = (option['diaporama'])? option['diaporama'] : (this.diaporama)? this.diaporama : false;
+        this.diaporamaTimer = (option['diaporama-timer'])? (option['diaporama-timer'] * 1000) : (this.diaporamaTimer)? this.diaporamaTimer : (3 * 1000);
 
     }
 
@@ -261,7 +266,7 @@ class Visiotheque{
         //création de la croix fermante
         this.visiothequeCloseControl = document.createElement('div');
         this.visiothequeCloseControl.className = 'visiotheque-close-control visiotheque-control';
-        this.visiothequeCloseControl.title = 'Fermer';
+        this.visiothequeCloseControl.title = 'Fermer (échape)';
         this.visiothequeCloseControl.innerHTML = 
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 40 40" height="11.288889mm" width="11.288889mm">
@@ -279,7 +284,7 @@ class Visiotheque{
         //création de la flèche gauche
         this.visiothequeLeftControl = document.createElement('div');
         this.visiothequeLeftControl.className = 'visiotheque-left-control visiotheque-control';
-        this.visiothequeLeftControl.title = 'Photo suivante';
+        this.visiothequeLeftControl.title = 'Photo suivante (flèche droite)';
         this.visiothequeLeftControl.innerHTML = 
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
@@ -296,7 +301,7 @@ class Visiotheque{
         //création de la flèche droite
         this.visiothequeRightControl = document.createElement('div');
         this.visiothequeRightControl.className = 'visiotheque-right-control visiotheque-control';
-        this.visiothequeRightControl.title = 'Photo précédente';
+        this.visiothequeRightControl.title = 'Photo précédente (flèche gauche)';
         this.visiothequeRightControl.innerHTML = 
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
@@ -305,16 +310,51 @@ class Visiotheque{
                     <path d="m 41.964399,172.98222 20.621992,0" style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
                     <path style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 55.108713,180.4599 7.477678,-7.47768 -7.477678,-7.47767"/>
                 </g>
-            </svg>
-            `;
+            </svg>`;
         this.visiothequeRightControl.addEventListener('click', (event)=>{this.visiothequeSlider('right');event.stopPropagation()});
         this.background.appendChild(this.visiothequeRightControl);
         
+        if(this.diaporama){
+            
+            //bouton play du diaporama
+            this.visiothequePlayControl = document.createElement('div');
+            this.visiothequePlayControl.className = 'visiotheque-play-control visiotheque-control';
+            this.visiothequePlayControl.title = 'Lancer le diaporama (barre espace)';
+            this.visiothequePlayControl.innerHTML = 
+                `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                <svg viewBox="0 0 40 40" height="11.288889mm" width="11.288889mm">
+                    <g transform="translate(-34.345186,-201.05203)">
+                        <circle transform="scale(-1,1)" r="17.930208" cy="218.98224" cx="-52.275394" style="fill:#000000;fill-opacity:0.78431373;fill-rule:evenodd;stroke:none;" />
+                        <path style="fill:#ffffff;fill-rule:evenodd;stroke:none;" d="m 63.070332,218.98224 -8.132748,4.69544 -8.132746,4.69545 1e-6,-9.39089 -1e-6,-9.39089 8.132747,4.69545 z" />
+                    </g>
+                </svg>`;
+            this.visiothequePlayControl.addEventListener('click', (event)=>{this.playVisiotheque(); event.stopPropagation()});
+            this.background.appendChild(this.visiothequePlayControl);
+            
+            //bouton pause du diaporama
+            this.visiothequePauseControl = document.createElement('div');
+            this.visiothequePauseControl.className = 'visiotheque-pause-control visiotheque-control';
+            this.visiothequePauseControl.title = 'Mettre en pause le diaporama (barre espace)';
+            this.visiothequePauseControl.innerHTML = 
+                `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
+                    <g transform="translate(-34.345186,-249.05203)">
+                        <circle style="fill:#000000;fill-opacity:0.78431373;fill-rule:evenodd;stroke:none;" cx="-52.275394" cy="266.98224" r="17.930208" transform="scale(-1,1)" />
+                        <g transform="matrix(0.89473685,0,0,0.89473685,8.157645,28.172071)">
+                            <rect y="258.00351" x="40.911179" height="17.803938" width="6.4397225" style="fill:#ffffff;fill-rule:evenodd;stroke:none;" />
+                            <rect style="fill:#ffffff;fill-rule:evenodd;stroke:none;" width="6.4397225" height="17.803938" x="51.265244" y="258.00351" />
+                        </g>
+                    </g>
+                </svg>`;
+            this.visiothequePauseControl.style.display = 'none';
+            this.visiothequePauseControl.addEventListener('click', (event)=>{this.pauseVisiotheque(); event.stopPropagation()});
+            this.background.appendChild(this.visiothequePauseControl);
+        }
         
     }
 
 
-    //AJOUTE LES ÉVENEMENTS AUX CLICS
+    //AJOUTE LES ÉVENEMENTS AUX CLICS SUR LES IMAGES DE LA PHOTOTEQUE
     addEvents(){
         for(var i = 0 ; i < this.imgCollection.length ; i++){
             this.imgCollection[i].setAttribute('data-n-child', i);
@@ -336,6 +376,7 @@ class Visiotheque{
             this.visiothequeCloseControl.style.opacity = 1;
             this.visiothequeLeftControl.style.opacity = 1;
             this.visiothequeRightControl.style.opacity = 1;
+            if(this.diaporama) this.visiothequePlayControl.style.opacity = 1;
             
             //affichage d'un loader
             this.showLoader(true);
@@ -469,7 +510,10 @@ class Visiotheque{
     visiothequeKeyPresse(e){
         if(e.keyCode == 39) this.visiothequeSlider('right');
         if(e.keyCode == 37) this.visiothequeSlider('left');
-        if(e.keyCode == 27) this.closeVisiotheque();
+        if(e.charCode == 32){
+            if(this.runDiaporama) this.pauseVisiotheque();
+            else this.playVisiotheque();
+        }
     }
     
     //FONCTION POUR AFFICHER LE LOADER
@@ -534,6 +578,49 @@ class Visiotheque{
         }
     }
     
+    
+    //FUNCTION QUI FAIT DÉFILER LES PHOTOS AUTOMATIQUEMENT
+    playVisiotheque(){
+        
+        //on note que le diaporama tourne
+        this.runDiaporama = true;
+        
+        //on change le style des boutons pause et play
+        this.visiothequePauseControl.style.display = 'block';
+        this.visiothequePauseControl.style.opacity = 1;
+        this.visiothequePlayControl.style.display = 'none';
+        this.visiothequePlayControl.style.opacity = 0;
+        
+        //on lance le set time interval
+        setTimeout(()=>{
+            this.intervalDiaporama = setInterval(()=>{
+                if(this.currentPhoto < this.imgCollection.length - 1){
+                    this.visiothequeSlider('right');
+                }else{
+                    this.pauseVisiotheque();
+                }
+            }, this.diaporamaTimer);
+        }, this.diaporamaTimer);
+    }
+    
+    
+    //FUNCTION QUI STOP LE DÉFILEMENT DES PHOTOS
+    pauseVisiotheque(){
+        
+        //on note que le diaporama ne tourne plus
+        this.runDiaporama = false;
+        
+        //on change le style des boutons
+        this.visiothequePauseControl.style.display = 'none';
+        this.visiothequePauseControl.style.opacity = 0;
+        this.visiothequePlayControl.style.display = 'block';
+        this.visiothequePlayControl.style.opacity = 1;
+        
+        
+        //on arrête le timinterval
+        clearInterval(this.intervalDiaporama);
+    }
+    
     //FERMETURE DE LA VISIONNEUSE
     closeVisiotheque(){
         var scrollPosition = this.getScrollPosition();
@@ -543,6 +630,7 @@ class Visiotheque{
         this.visiothequeCloseControl.style.opacity = 0;
         this.visiothequeLeftControl.style.opacity = 0;
         this.visiothequeRightControl.style.opacity = 0;
+        if(this.diaporama) this.visiothequePlayControl.style.opacity = 0;
         
         //animation de fermeture de la photo
         this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].offsetTop - scrollPosition[1] + 'px';

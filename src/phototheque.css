@@ -67,6 +67,12 @@
 
 
 /*STYLE DE LA VISIOTHEQUE*/
+.visiotheque-background a {
+    color: rgb(59, 103, 255);
+    text-decoration: none;}
+.visiotheque-background a:visited {color : rgb(160, 69, 193)}
+
+
 .visiotheque-background {
     will-change: background-color;
     transition: background-color 0.3s;
@@ -122,6 +128,15 @@
 .visiotheque-close-control{
     top: 5px;
     left: 5px;}
+
+.visiotheque-play-control{
+    top: 5px;
+    left: 55px;}
+
+.visiotheque-pause-control{
+    display: 'none';
+    top: 5px;
+    left: 55px;}
 
 .visiotheque-left-control{
     transform: translateX(-50px);
