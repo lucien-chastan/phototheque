@@ -14,7 +14,7 @@ class Phototheque {
         //construit et affiche le laoder de la phototheque
         this.svgLoadPhototheque = document.createElement('div');
         this.svgLoadPhototheque.className = 'phototheque-div-loader';
-        this.svgLoadPhototheque.innerHTML = 
+        this.svgLoadPhototheque.innerHTML =
             `<svg viewBox="0 0 105 105" height="35px" width="35px">
                 <rect class="phototheque-rect-load" id="phototheque-rect-load-1" y="0" x="0" height="49" width="39" style="fill:#000000;fill-opacity:0.8;stroke:none" />
                 <rect class="phototheque-rect-load" id="phototheque-rect-load-2" y="0" x="46.52" height="49.12" width="59.09" style="fill:#000000;fill-opacity:0.8;stroke:none"/>
@@ -22,7 +22,7 @@ class Phototheque {
                 <rect class="phototheque-rect-load" id="phototheque-rect-load-4" y="56.43" x="66.34" height="49.18" width="39.3" style="fill:#000000;fill-opacity:0.8;stroke:none"/>
             </svg>`;
         this.groupImg.appendChild(this.svgLoadPhototheque);
-        
+
         //On charge les images de la phototheque
         this.loadPhototheque(element, option);
 
@@ -44,7 +44,7 @@ class Phototheque {
 
         //On met en place la visionneuse si l'option est active
         if(this.visiotheque) this.visionneuse = new Visiotheque(element, option['visiotheque-option']);
-        
+
         //on lance la définition des lignes et la retaille des images
         this.initStyle();
         this.initImgHeight(this.maxHeight);
@@ -67,13 +67,13 @@ class Phototheque {
             this.allImg[i].style.display = 'inline-block';
             this.allImg[i].style.marginBottom = this.gouttiere + 'px';
         }
-        
+
         this.animationLoadPhototheque();
     }
 
     //CHARGE LES PHOTOS ET LES AFFICHES À LA FIN
     loadPhototheque(element, option){
-        
+
         for(var i = 0 ; i < this.allImg.length ; i ++){
             var loadImg = new Image();
             loadImg.src = this.allImg[i].src;
@@ -83,19 +83,19 @@ class Phototheque {
             }
         }
     }
-    
+
     //ANIMATION DE L'APPARITION DES PHOTOS À LA FIN DU CHARGEMENT DES PHOTOS
     animationLoadPhototheque(){
-        
+
         //on supprime le loader de la phototheque
         this.groupImg.removeChild(this.svgLoadPhototheque);
-        
+
         //on affiche les photos avec une animation
         for(var i = 0 ; i < this.allImg.length ; i++){
             ((i)=>{setTimeout(()=>{this.allImg[i].style.opacity = '1';},(Math.random() * 300));})(i);
         }
     }
-    
+
     //FONCTION POUR TAILLER LES PHOTOS EN HAUTEUR
     initImgHeight(imgHeight){
         for(var i = 0 ; i < this.nbImg ; i++){
@@ -220,10 +220,10 @@ class Visiotheque{
 
         //attribution des events click sur les image
         this.addEvents();
-        
+
         //propriété si le diaporama est lancé
         this.runDiaporama = false;
-                
+
         window.addEventListener('keypress',  (e)=>{this.visiothequeKeyPresse(e)});
     }
 
@@ -262,12 +262,12 @@ class Visiotheque{
         this.visothequeLegende = document.createElement('div');
         this.visothequeLegende.className = 'visiotheque-legende';
         this.background.appendChild(this.visothequeLegende);
-        
+
         //création de la croix fermante
         this.visiothequeCloseControl = document.createElement('div');
         this.visiothequeCloseControl.className = 'visiotheque-close-control visiotheque-control';
         this.visiothequeCloseControl.title = 'Fermer (échape)';
-        this.visiothequeCloseControl.innerHTML = 
+        this.visiothequeCloseControl.innerHTML =
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 40 40" height="11.288889mm" width="11.288889mm">
                 <g transform="matrix(1.115436,0,0,1.115436,-38.309857,-66.237104)">
@@ -280,12 +280,12 @@ class Visiotheque{
             </svg>`;
         this.visiothequeCloseControl.addEventListener('click', this.closeVisiotheque);
         this.background.appendChild(this.visiothequeCloseControl);
-        
+
         //création de la flèche gauche
         this.visiothequeLeftControl = document.createElement('div');
         this.visiothequeLeftControl.className = 'visiotheque-left-control visiotheque-control';
         this.visiothequeLeftControl.title = 'Photo suivante (flèche droite)';
-        this.visiothequeLeftControl.innerHTML = 
+        this.visiothequeLeftControl.innerHTML =
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
                 <g transform="translate(-34.345186,-106.41619)">
@@ -297,12 +297,12 @@ class Visiotheque{
             `;
         this.visiothequeLeftControl.addEventListener('click', (event)=>{this.visiothequeSlider('left');event.stopPropagation()});
         this.background.appendChild(this.visiothequeLeftControl);
-        
+
         //création de la flèche droite
         this.visiothequeRightControl = document.createElement('div');
         this.visiothequeRightControl.className = 'visiotheque-right-control visiotheque-control';
         this.visiothequeRightControl.title = 'Photo précédente (flèche gauche)';
-        this.visiothequeRightControl.innerHTML = 
+        this.visiothequeRightControl.innerHTML =
             `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
                 <g transform="translate(-34.345186,-155.05203)">
@@ -313,14 +313,14 @@ class Visiotheque{
             </svg>`;
         this.visiothequeRightControl.addEventListener('click', (event)=>{this.visiothequeSlider('right');event.stopPropagation()});
         this.background.appendChild(this.visiothequeRightControl);
-        
+
         if(this.diaporama){
-            
+
             //bouton play du diaporama
             this.visiothequePlayControl = document.createElement('div');
             this.visiothequePlayControl.className = 'visiotheque-play-control visiotheque-control';
             this.visiothequePlayControl.title = 'Lancer le diaporama (barre espace)';
-            this.visiothequePlayControl.innerHTML = 
+            this.visiothequePlayControl.innerHTML =
                 `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
                 <svg viewBox="0 0 40 40" height="11.288889mm" width="11.288889mm">
                     <g transform="translate(-34.345186,-201.05203)">
@@ -330,12 +330,12 @@ class Visiotheque{
                 </svg>`;
             this.visiothequePlayControl.addEventListener('click', (event)=>{this.playVisiotheque(); event.stopPropagation()});
             this.background.appendChild(this.visiothequePlayControl);
-            
+
             //bouton pause du diaporama
             this.visiothequePauseControl = document.createElement('div');
             this.visiothequePauseControl.className = 'visiotheque-pause-control visiotheque-control';
             this.visiothequePauseControl.title = 'Mettre en pause le diaporama (barre espace)';
-            this.visiothequePauseControl.innerHTML = 
+            this.visiothequePauseControl.innerHTML =
                 `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
                 <svg viewBox="0 0 35.860416 35.860416" height="10.120606mm" width="10.120606mm">
                     <g transform="translate(-34.345186,-249.05203)">
@@ -350,7 +350,7 @@ class Visiotheque{
             this.visiothequePauseControl.addEventListener('click', (event)=>{this.pauseVisiotheque(); event.stopPropagation()});
             this.background.appendChild(this.visiothequePauseControl);
         }
-        
+
     }
 
 
@@ -377,7 +377,7 @@ class Visiotheque{
             this.visiothequeLeftControl.style.opacity = 1;
             this.visiothequeRightControl.style.opacity = 1;
             if(this.diaporama) this.visiothequePlayControl.style.opacity = 1;
-            
+
             //affichage d'un loader
             this.showLoader(true);
 
@@ -413,17 +413,14 @@ class Visiotheque{
         //on cache le loader
         this.showLoader(false);
 
-        //attribut de l'imgAnimationOpen            
-        this.imgOpenAnimation.style.display = 'block';
-        this.imgOpenAnimation.style.maxHeight = this.imgClick.target.offsetHeight + 'px';
-        this.imgOpenAnimation.style.maxWidth = this.imgClick.target.offsetWidth + 'px';
+        //attribut de l'imgAnimationOpen
+        this.imgOpenAnimation.style.display = 'inline-block';
         this.imgOpenAnimation.style.opacity = 1;
-        this.imgOpenAnimation.style.top = positionImg['top'] + 'px';
-        this.imgOpenAnimation.style.left = positionImg['left'] + 'px';
 
         var sleepToZoom = setTimeout(()=>{
-            this.imgOpenAnimation.style.transition = 'top 0.3s, left 0.3s, max-height 0.3s, max-width 0.3s, opacity 0.5s';
+            this.imgOpenAnimation.style.transition = 'top 0.3s, left 0.3s, max-height 0.3s, max-width 0.3s, opacity 0.5s, transform 0.5s';
             this.positionneCurrentPhoto();
+            this.imgOpenAnimation.style.transform = 'scale(1)';
         },50);
     }
 
@@ -433,14 +430,14 @@ class Visiotheque{
         var currentPhoto = this.imgCollection[this.currentPhoto],
             altLegende = currentPhoto.getAttribute('alt'),
             dataLegende = currentPhoto.getAttribute('data-legende');
-        
-        
+
+
         //on charge en cache les photos suivantes et précédente
         this.photosInCache();
-        
+
         //donne la valeur à la légende
         if(this.typeLegende != '') this.visothequeLegende.innerHTML = (this.typeLegende == 'alt')? altLegende : dataLegende;
-                
+
         //variable de calcul
         var photoDimension = {"height" : this.grandePhoto.naturalHeight, "width" : this.grandePhoto.naturalWidth},
             zoneDimension = {
@@ -450,34 +447,32 @@ class Visiotheque{
             deltaVertical = photoDimension['height'] - zoneDimension['height'],
             deltaHorizontal = photoDimension['width'] - zoneDimension['width'],
             maxDelta = (Math.abs(deltaVertical) > Math.abs(deltaHorizontal))? deltaVertical : deltaHorizontal;
-                
+
         //calcul des décalages en left et right
         if(deltaVertical > 0 || deltaHorizontal > 0){
             //si notre photo à au moins une dimension suprérieur au cadre
             var decalageLeft = 5,
                 decalageTop = 5;
-            
+
             //photo typé portrait
             if(Math.abs(deltaVertical) > Math.abs(deltaHorizontal)) decalageLeft = (zoneDimension['width'] - (photoDimension['width'] * zoneDimension['height'] / photoDimension['height'])) / 2;
-            
+
             //photo typé paysage
             if(Math.abs(deltaVertical) < Math.abs(deltaHorizontal)) decalageTop = (zoneDimension['height'] - (photoDimension['height'] * zoneDimension['width'] / photoDimension['width'])) / 2;
-            
+
             //on attribut les valeurs
-            this.imgOpenAnimation.style.left = decalageLeft + 'px';
-            this.imgOpenAnimation.style.top = decalageTop + 'px';
+            this.imgOpenAnimation.style.marginTop = decalageTop + 'px';
         }else{
-            //si notre image naturel est plus petite que la zone d'affichage            
-            this.imgOpenAnimation.style.left = (zoneDimension['width'] - photoDimension['width']) / 2 + 'px';
-            this.imgOpenAnimation.style.top = (zoneDimension['height'] - photoDimension['height']) / 2 + 'px';
+            //si notre image naturel est plus petite que la zone d'affichage
+            this.imgOpenAnimation.style.marginTop = (zoneDimension['height'] - photoDimension['height']) / 2 + 'px';
         }
-                
+
         //hauteur et largeur de l'image
         this.imgOpenAnimation.style.maxHeight = 'calc(100% - ' + (this.visothequeLegende.offsetHeight + 34) + 'px)';
         this.imgOpenAnimation.style.maxWidth = 'calc(100% - 10px)';
-        
+
     }
-    
+
     //CHARGE L'IMAGE SUIVANTE ET L'IMAGE PRÉCÉDENTE DE L'IMAGE COURANTE
     photosInCache(){
         //photo précédente
@@ -493,10 +488,10 @@ class Visiotheque{
             else this.photoSuivante.src = this.imgCollection[parseInt(this.currentPhoto) + 1].src;
         }
     }
-    
+
     //CACHE OU AFFICHE LES CONTRÔLES DROITE ET GAUCHE
     hideControl(event){
-        
+
         if(event.clientX < 100 || event.clientX > (this.background.offsetWidth - 100)){
             this.visiothequeLeftControl.style.transform = 'translateX(0px)';
             this.visiothequeRightControl.style.transform = 'translateX(0px)';
@@ -515,52 +510,52 @@ class Visiotheque{
             else this.playVisiotheque();
         }
     }
-    
+
     //FONCTION POUR AFFICHER LE LOADER
     showLoader(yn){
         this.loader.style.backgroundColor = (yn)? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0)';
     }
-    
+
     //FONCTION SLIDE DROITE GAUCHE DE LA VISOTHEQUE
     visiothequeSlider(direction){
         var decLeft = (direction == 'left')? 150 : -150;
 
         //si nous ne somme pas sur les bords
         if((this.currentPhoto > 0 || direction == 'right') && (this.currentPhoto < (this.imgCollection.length - 1) || direction == 'left')){
-            
+
             //on définie la prochaine photo à afficher
             this.currentPhoto = (direction == 'left')? (this.currentPhoto - 1) : (parseInt(this.currentPhoto) + 1);
-            
+
             //animaton étape 1 : la photo par en transparence
-            this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s';
+            this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s, transform 0.5s';
             this.imgOpenAnimation.style.left = this.imgOpenAnimation.offsetLeft + decLeft + 'px';
             this.imgOpenAnimation.style.opacity = 0;
-            
+
             var sleepAnimation = setTimeout(()=>{
-                
+
                 //on charge la nouvelle photo dans imgOpenAnimation
                 this.imgOpenAnimation.src = (direction == 'right')? this.photoSuivante.src : this.photoPrecedente.src;
-                
+
                 //on affiche le loader
                 this.showLoader(true);
-                
+
                 //on charge la source de l'image
                 this.imgOpenAnimation.onload = ()=>{
-                    
+
                     //on cache le loader
                     this.showLoader(false);
-                    
+
                     //on coupe les transitions
                     this.imgOpenAnimation.style.transition = 'all 0s';
-                    
+
                     //on positionne la nouvelle photo
                     this.positionneCurrentPhoto();
-                    
+
                     //animation étape 2 : on ramène la photo à deux fois sa valeur de left
                     setTimeout(()=>{
                         var initialDecalage = this.imgOpenAnimation.offsetLeft;
                         this.imgOpenAnimation.style.left = this.imgOpenAnimation.offsetLeft - decLeft + 'px';
-                        
+
                         //animation étape 3 : on affiche la nouvelle photo
                         setTimeout(()=>{
                             this.imgOpenAnimation.style.transition = 'opacity 0.3s, left 0.3s, max-height 0.3s, max-width 0.3s, opacity 0.5s, top 0.3s';
@@ -577,20 +572,20 @@ class Visiotheque{
             setTimeout(()=>{this.imgOpenAnimation.style.left = initialDecalage + 'px'},300);
         }
     }
-    
-    
+
+
     //FUNCTION QUI FAIT DÉFILER LES PHOTOS AUTOMATIQUEMENT
     playVisiotheque(){
-        
+
         //on note que le diaporama tourne
         this.runDiaporama = true;
-        
+
         //on change le style des boutons pause et play
         this.visiothequePauseControl.style.display = 'block';
         this.visiothequePauseControl.style.opacity = 1;
         this.visiothequePlayControl.style.display = 'none';
         this.visiothequePlayControl.style.opacity = 0;
-        
+
         //on lance le set time interval
         setTimeout(()=>{
             this.intervalDiaporama = setInterval(()=>{
@@ -602,41 +597,38 @@ class Visiotheque{
             }, this.diaporamaTimer);
         }, this.diaporamaTimer);
     }
-    
-    
+
+
     //FUNCTION QUI STOP LE DÉFILEMENT DES PHOTOS
     pauseVisiotheque(){
-        
+
         //on note que le diaporama ne tourne plus
         this.runDiaporama = false;
-        
+
         //on change le style des boutons
         this.visiothequePauseControl.style.display = 'none';
         this.visiothequePauseControl.style.opacity = 0;
         this.visiothequePlayControl.style.display = 'block';
         this.visiothequePlayControl.style.opacity = 1;
-        
-        
+
+
         //on arrête le timinterval
         clearInterval(this.intervalDiaporama);
     }
-    
+
     //FERMETURE DE LA VISIONNEUSE
     closeVisiotheque(){
         var scrollPosition = this.getScrollPosition();
-                
+
         //disparition du fond et des contrôles
         this.background.style.backgroundColor = 'rgba(0,0,0,0)';
         this.visiothequeCloseControl.style.opacity = 0;
         this.visiothequeLeftControl.style.opacity = 0;
         this.visiothequeRightControl.style.opacity = 0;
         if(this.diaporama) this.visiothequePlayControl.style.opacity = 0;
-        
+
         //animation de fermeture de la photo
-        this.imgOpenAnimation.style.top = this.imgCollection[this.currentPhoto].offsetTop - scrollPosition[1] + 'px';
-        this.imgOpenAnimation.style.left = this.imgCollection[this.currentPhoto].offsetLeft - scrollPosition[0] + 'px';
-        this.imgOpenAnimation.style.maxHeight = this.imgCollection[this.currentPhoto].offsetHeight + 'px';
-        this.imgOpenAnimation.style.maxWidth = this.imgCollection[this.currentPhoto].offsetWidth + 'px';
+        this.imgOpenAnimation.style.transform = 'scale(0.5)';
         this.imgOpenAnimation.style.opacity = 0;
         var sleepToclose = setTimeout(()=>{
             this.background.style.display = 'none';
@@ -645,7 +637,7 @@ class Visiotheque{
             this.imgOpenAnimation.style.transition = null;
         }, 500);
     }
-    
+
 
     //RETOURNE LE DÉCALAGE DU SCROLL
     getScrollPosition(){

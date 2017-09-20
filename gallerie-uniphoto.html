@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Photothèque uniphoto</title>
+        <meta name="description" content="phototheque uni-photo">
+        <meta name="viewport" content="width=device-width"/>
+        <meta name="author" content="Chastan Lucien">
+        <link rel="icon" href="icon/logo-phototheque.png">
+        <link href="style-demo.css" rel="stylesheet">
+
+        <meta property="og:title" content="Phototheque Js | Galerie photo responsive"/>
+        <meta property="og:description" content="Phototheque Js est une mini librairie Javascript pour créer des galeries photo responsive et configurable avec une visionneuse intégrée"/>
+        <meta property="og:url" content="http://www.lucien-chastan.fr/phototheque/" />
+        <meta property="og:image" content="http://www.lucien-chastan.fr/phototheque/img/photothequejs.jpg" />
+        <meta property="og:type" content="website"/>
+
+        <link href="src/phototheque.css" rel="stylesheet">
+        <script src="src/phototheque.js"></script>
+    </head>
+    <body>
+
+        <div class="container">
+            <h1><img src="icon/logo-phototheque.png" class="logo-phototheque"> Phototheque Js</h1>
+
+            <p class="intro">
+                Phototheque Js est une librairie javascript de création de galerie photo responsive et configurable<br>
+                <a class="lien-github" href="https://github.com/lucien-chastan/Phototheque">Fork me on GitHub <img src="icon/github.png" alt=""></a>
+            </p>
+
+            <div id="MyPhototheque" class="phototheque">
+                <img src="http://www.lucien-chastan.fr/phototheque/vignette/img_8.jpg" data-full="http://www.lucien-chastan.fr/phototheque/img/img_8.jpg" data-legende="Colonette de calcaire | David Blon©" alt="Colonette de calcaire | David Blon©">
+            </div>
+
+            <p class="para-credit">Photo de  <a href="https://www.behance.net/tameran">David Blon©</a></p>
+        </div>
+
+        <script>
+
+            //lancement de la phototheque à la fin du chargement de la page
+            var MyPhototheque = new Phototheque(
+                '#MyPhototheque', //element contenant les images de la galerie
+                {
+                    "maxHeight" : "auto", //hateur max des photos dans la gallerie
+                    "gouttiere" : "0px", //largeur de la gouttière entre les photos
+                    "lastRow" : "center", //left, center, right [par défaut : left]
+                    "visiotheque" : true, //défini si nous voulons ou pas une visionneuse pour nos photos
+                    "visiotheque-option" : {
+                        "legende" : "data-legende", //origine de la légende, alt, none ou data-legende
+                        "diaporama" : false //temps entre les diapos en seconde
+                    }
+                }
+            );
+
+//            var uniPhoto = new visiotheque("MyPhototheque",{
+//                "legende" : "data-legende",
+//                "diaporama" : false
+//            });
+
+        </script>
+    </body>
+</html>
